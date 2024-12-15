@@ -19,7 +19,7 @@ export default {
 			/^\/(?:.+\/)?config(\/.*)?$/, // Block /config and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?db(\/.*)?$/, // Block /db and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?logs?(\/.*)?$/, // Block /log or /logs and their subpaths, allowing for preceding directories
-			/\.php$/, // Block any PHP file
+			/\.php([0-9]*)?$/, // Block any PHP files (e.g., .php, .php7, .php56)
 			/\.env$/, // Block .env files specifically
 		]
 

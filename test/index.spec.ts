@@ -43,6 +43,9 @@ describe('DDOS worker', () => {
 			// PHP files
 			'https://example.com/file.php',
 			'https://example.com/admin/file.php',
+			'https://example.com/admin/install.php56',
+			'https://example.com/admin/setup.php7',
+			'https://example.com/admin/main.php8',
 
 			// .env files
 			'https://example.com/.env',
