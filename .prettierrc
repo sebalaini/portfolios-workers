@@ -1,6 +1,28 @@
 {
-	"printWidth": 140,
+	"parser": "typescript",
+	"printWidth": 80,
+	"endOfLine": "lf",
+	"trailingComma": "es5",
+	"tabWidth": 2,
+	"semi": false,
 	"singleQuote": true,
-	"semi": true,
-	"useTabs": true
+	"jsxSingleQuote": true,
+	"singleAttributePerLine": true,
+	"bracketSpacing": true,
+	"bracketSameLine": false,
+	"overrides": [
+		{
+			"files": "*.md",
+			"options": {
+				"parser": "markdown",
+				"proseWrap": "always"
+			}
+		},
+		{
+			"files": "*.json",
+			"options": {
+				"parser": "json"
+			}
+		}
+	]
 }
