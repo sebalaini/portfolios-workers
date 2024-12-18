@@ -15,6 +15,7 @@ describe('DDOS worker', () => {
 			'https://example.com/.well-known/something',
 
 			// /wp-* and subpaths
+			'https://example.com/wp',
 			'https://example.com/wp-admin',
 			'https://example.com/sito/wp-admin',
 			'https://example.com/wp-content/uploads',
@@ -25,6 +26,7 @@ describe('DDOS worker', () => {
 			'https://example.com/new/subfolder',
 			'https://example.com/old',
 			'https://example.com/sito/old',
+			'https://example.com/home',
 			'https://example.com/admin',
 			'https://example.com/admin/settings',
 			'https://example.com/sito/admin',
@@ -38,13 +40,23 @@ describe('DDOS worker', () => {
 			'https://example.com/config',
 			'https://example.com/db',
 			'https://example.com/log',
+			'https://example.com/.git',
+			'https://example.com/.git/log',
 			'https://example.com/logs',
+			'https://example.com/.vscode/file.js',
+
+			// sftp files
+			'https://example.com/sftp.json',
+			'https://example.com/sftp-config.json',
 
 			// PHP files
 			'https://example.com/file.php',
 			'https://example.com/admin/file.php',
 			'https://example.com/admin/install.php56',
 			'https://example.com/admin/setup.php7',
+			'https://example.com/admin/file.PHP',
+			'https://example.com/admin/randkeyword.PhP8',
+			'https://example.com/admin/file.PhP',
 			'https://example.com/admin/main.php8',
 
 			// .env files
