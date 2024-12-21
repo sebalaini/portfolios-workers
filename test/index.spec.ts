@@ -62,7 +62,17 @@ describe('DDOS worker', () => {
 			// .env files
 			'https://example.com/.env',
 			'https://example.com/admin/.env',
-			'https://example.com/sito/.env',
+			'https://example.com/.env_1',
+			'https://example.com/.env.prod',
+
+			// sql files
+			'https://example.com/some.sql',
+			'https://example.com/some.sql2',
+			'https://example.com/some.sql_2',
+
+			// zip files
+			'https://example.com/file.zip',
+			'https://example.com/file.tar.gz',
 		]
 
 		for (const url of blockedUrls) {
