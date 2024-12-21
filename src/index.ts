@@ -4,7 +4,6 @@ export default {
 
 		// Define regex patterns for broader directory and file matches
 		const blockedPatterns = [
-			/^\/(?:.+\/)?\.well-known(\/.*)?$/, // Block /.well-known/ and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?wp.*(\/.*)?$/, // Block any path starting with wp and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?wordpress(\/.*)?$/, // Block /wordpress and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?resetpass(\/.*)?$/, // Block /resetpass and its subpaths, allowing for preceding directories
@@ -31,7 +30,10 @@ export default {
 			/^\/(?:.+\/)?.vscode?(\/.*)?$/, // Block /.vscode and their subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?sftp.*(\/.*)?$/, // Block files like sftp.json or sftp-config.json
 			/\.php([0-9]*|[a-z]*)?$/i, // Block any PHP files (e.g., .php, .php7, .php56, .PhP, .pHpScript)
-			/\.env$/, // Block .env files specifically
+			/\.env.*$/i, // Block .env files
+			/\.sql.*$/i, // Block .sql files
+			/\.zip.*$/i, // Block .zip files
+			/\.tar.*$/i, // Block .tar files
 		]
 
 		for (const pattern of blockedPatterns) {
