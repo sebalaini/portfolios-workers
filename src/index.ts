@@ -6,6 +6,16 @@ export default {
 		const blockedPatterns = [
 			/^\/(?:.+\/)?wp.*(\/.*)?$/, // Block any path starting with wp and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?wordpress(\/.*)?$/, // Block /wordpress and its subpaths, allowing for preceding directories
+			/^\/(?:.+\/)?php(\/.*)?$/, // Block /php and its subpaths, allowing for preceding directories
+			/^\/(?:.+\/)?vendor(\/.*)?$/, // Block /vendor and its subpaths, allowing for preceding directories
+			/^\/(?:.+\/)?modules(\/.*)?$/, // Block /modules and its subpaths, allowing for preceding directories
+			/^\/(?:.+\/)?sites(\/.*)?$/, // Block /sites and its subpaths, allowing for preceding directories
+			/^\/(?:.+\/)?site(\/.*)?$/, // Block /site and its subpaths, allowing for preceding directories
+			/^\/(?:.+\/)?var(\/.*)?$/, // Block /var and its subpaths, allowing for preceding directories
+			/^\/(?:.+\/)?uploads(\/.*)?$/, // Block /uploads and its subpaths, allowing for preceding directories
+			/^\/(?:.+\/)?files(\/.*)?$/, // Block /files and its subpaths, allowing for preceding directories
+			/^\/(?:.+\/)?template(\/.*)?$/, // Block /template and its subpaths, allowing for preceding directories
+			/^\/(?:.+\/)?login(\/.*)?$/, // Block /template and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?resetpass(\/.*)?$/, // Block /resetpass and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?new(\/.*)?$/, // Block /new and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?old(\/.*)?$/, // Block /old and its subpaths, allowing for preceding directories

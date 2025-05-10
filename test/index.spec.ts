@@ -18,7 +18,12 @@ describe('DDOS worker', () => {
 			'https://example.com/wp-includes/file.php',
 
 			// Specific folder blocks
-			'https://example.com/new',
+			'https://example.com/php',
+			'https://example.com/php/file',
+			'https://example.com/vendor',
+			'https://example.com/vendor/package',
+			'https://example.com/sites',
+			'https://example.com/sites/default',
 			'https://example.com/new/subfolder',
 			'https://example.com/old',
 			'https://example.com/sito/old',
