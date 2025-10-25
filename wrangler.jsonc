@@ -18,6 +18,11 @@
 		"nodejs_compat"
 	],
 	/**
+	 * Previews Configuration
+	 * Docs: https://developers.cloudflare.com/workers/configuration/previews/
+	 */
+	"preview_urls": false,
+	/**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
 	 */
