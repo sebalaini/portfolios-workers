@@ -1,14 +1,12 @@
 import { createExecutionContext, waitOnExecutionContext } from 'cloudflare:test'
+import { env } from 'cloudflare:workers'
+import { http, HttpResponse } from 'msw'
 import { describe, it, expect } from 'vitest'
+import { network } from './network'
 import worker from '../src/index'
 
-// For now, you'll need to do something like this to get a correctly-typed
-// `Request` to pass to `worker.fetch()`.
-const IncomingRequest = Request<unknown, IncomingRequestCfProperties>
-const env = {}
-
 describe('DDOS worker', () => {
-	it('should block unauthorized paths with a 500 status', async () => {
+	it('it should block unauthorized paths with a 500 status', async () => {
 		const blockedUrls = [
 			// /wp-* and subpaths
 			'https://example.com/wp',
@@ -77,12 +75,18 @@ describe('DDOS worker', () => {
 		]
 
 		for (const url of blockedUrls) {
-			const request = new IncomingRequest(url)
+			network.use(
+				http.get(url, () => {
+					return HttpResponse.text('unauthorized', { status: 500 })
+				})
+			)
+
 			const ctx = createExecutionContext()
-			const response = await worker.fetch(request, env, ctx)
+			const response = await worker.fetch(new Request(url), env, ctx)
 			await waitOnExecutionContext(ctx)
 
 			expect(response.status).toBe(500)
+			expect(await response.text()).toBe('unauthorized')
 		}
 	})
 })
