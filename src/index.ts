@@ -47,7 +47,7 @@ export default {
 			/\.tar.*$/i, // Block .tar files
 		]
 
-		const requestTarget = `${url.pathname}${url.search}`
+		const requestTarget = `${url.pathname}${url.search}`.replaceAll(/\/+/g, '/').toLowerCase() // Normalize the request target to lowercase and remove duplicate slashes
 
 		for (const pattern of blockedPatterns) {
 			if (pattern.test(requestTarget)) {

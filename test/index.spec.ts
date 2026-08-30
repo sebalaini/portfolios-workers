@@ -40,6 +40,7 @@ describe('DDOS worker', () => {
 		const blockedUrls = [
 			// /wp-* and subpaths
 			'https://example.com/wp',
+			'https://example.com//wp-json',
 			'https://example.com/wp-admin',
 			'https://example.com/sito/wp-admin',
 			'https://example.com/wp-content/uploads',
