@@ -12,12 +12,12 @@
 		"prettier": "prettier --write \"**/*.{ts,json,md}\""
 	},
 	"devDependencies": {
-		"@cloudflare/vitest-pool-workers": "^0.12.6",
-		"@types/node": "^25.0.10",
-		"prettier": "^3.8.1",
-		"typescript": "^5.9.3",
-		"vitest": "~3.2.4",
-		"wrangler": "^4.60.0"
+		"@cloudflare/vitest-pool-workers": "^0.22.0",
+		"@types/node": "^26.4.0",
+		"prettier": "^3.9.6",
+		"typescript": "^7.0.2",
+		"vitest": "^4.1.11",
+		"wrangler": "^4.127.1"
 	},
 	"packageManager": "yarn@4.4.1"
 }
