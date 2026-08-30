@@ -1,11 +1,41 @@
 import { createExecutionContext, waitOnExecutionContext } from 'cloudflare:test'
 import { env } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { network } from './network'
 import worker from '../src/index'
 
 describe('DDOS worker', () => {
+	it('it should block a route passed in a query parameter', async () => {
+		const blockedParams = [
+			// /wp-* and subpaths
+			{ param:'rest_route', value:'/not-blocked/v2/posts/9999999' },
+			{ param:'something', value:'/wp/v2/posts/9999999' },
+		]
+
+		for (const param of blockedParams) {
+		network.use(
+			http.get('https://example.com/blog/', ({ request }) => {
+				expect(new URL(request.url).searchParams.get(param.param)).toBe(
+					param.value
+				)
+				return HttpResponse.text('unauthorized', { status: 500 })
+			})
+		)
+
+		const ctx = createExecutionContext()
+		const response = await worker.fetch(
+			new Request(`https://example.com/blog/?${param.param}=${encodeURIComponent(param.value)}`),
+			env,
+			ctx
+		)
+		await waitOnExecutionContext(ctx)
+
+		expect(response.status).toBe(500)
+		expect(await response.text()).toBe('unauthorized')
+		}
+	})
+
 	it('it should block unauthorized paths with a 500 status', async () => {
 		const blockedUrls = [
 			// /wp-* and subpaths

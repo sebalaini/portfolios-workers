@@ -4,6 +4,7 @@ export default {
 
 		// Define regex patterns for broader directory and file matches
 		const blockedPatterns = [
+			/^\/(?:.+\/)?rest_*(\/.*)?$/, // Block any path starting with rest and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?wp.*(\/.*)?$/, // Block any path starting with wp and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?wordpress(\/.*)?$/, // Block /wordpress and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?php(\/.*)?$/, // Block /php and its subpaths, allowing for preceding directories
@@ -46,8 +47,10 @@ export default {
 			/\.tar.*$/i, // Block .tar files
 		]
 
+		const requestTarget = `${url.pathname}${url.search}`
+
 		for (const pattern of blockedPatterns) {
-			if (pattern.test(url.pathname)) {
+			if (pattern.test(requestTarget)) {
 				return new Response('unauthorized', { status: 500 })
 			}
 		}
