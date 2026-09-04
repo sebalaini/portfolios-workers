@@ -6,17 +6,10 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "portfolios-workers",
 	"main": "src/index.ts",
-	"compatibility_date": "2025-11-17",
+	"compatibility_date": "2026-09-01",
 	"observability": {
 		"enabled": true
 	},
-	/**
-	 * Compatibility flag
-	 * Docs: https: //developers.cloudflare.com/workers/configuration/compatibility-flags/
-	 */
-	"compatibility_flags": [
-		"nodejs_compat"
-	],
 	/**
 	 * Previews Configuration
 	 * Docs: https://developers.cloudflare.com/workers/configuration/previews/
