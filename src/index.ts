@@ -4,6 +4,9 @@ export default {
 
 		// Define regex patterns for broader directory and file matches
 		const blockedPatterns = [
+			/graphql/, // Block any URL containing graphql
+			/phpinfo/, // Block any URL containing phpinfo
+			/^\/(?:.+\/)?pms(?:\/.*)?(?:\?.*)?$/, // Block /pms and its subpaths or query strings
 			/^\/(?:.+\/)?rest_*(\/.*)?$/, // Block any path starting with rest and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?wp.*(\/.*)?$/, // Block any path starting with wp and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?wordpress(\/.*)?$/, // Block /wordpress and its subpaths, allowing for preceding directories
@@ -40,11 +43,12 @@ export default {
 			/^\/(?:.+\/)?logs?(\/.*)?$/, // Block /log or /logs and their subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?.vscode?(\/.*)?$/, // Block /.vscode and their subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?sftp.*(\/.*)?$/, // Block files like sftp.json or sftp-config.json
-			/\.php([0-9]*|[a-z]*)?$/i, // Block any PHP files (e.g., .php, .php7, .php56, .PhP, .pHpScript)
+			/\.php([0-9]*|[a-z]*)?(?:$|\?|%[0-9a-f]{2})/i, // Block any PHP files, including URL suffixes
 			/\.env.*$/i, // Block .env files
 			/\.sql.*$/i, // Block .sql files
 			/\.zip.*$/i, // Block .zip files
 			/\.tar.*$/i, // Block .tar files
+			/\.docker.*$/i, // Block .docker files
 		]
 
 		const requestTarget = `${url.pathname}${url.search}`.replaceAll(/\/+/g, '/').toLowerCase() // Normalize the request target to lowercase and remove duplicate slashes

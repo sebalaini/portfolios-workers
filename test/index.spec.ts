@@ -9,13 +9,34 @@ describe('DDOS worker', () => {
 	it('it should block a route passed in a query parameter', async () => {
 		const blockedParams = [
 			// /wp-* and subpaths
-			{ param:'rest_route', value:'/not-blocked/v2/posts/9999999' },
-			{ param:'something', value:'/wp/v2/posts/9999999' },
+			{
+				url: 'https://example.com/blog/',
+				param: 'rest_route',
+				value: '/not-blocked/v2/posts/9999999',
+			},
+			{
+				url: 'https://example.com/blog/',
+				param: 'something',
+				value: '/wp/v2/posts/9999999',
+			},
+			{
+				url: 'https://example.com/pms/',
+				param: 'module',
+				value: 'some-module',
+			},
+			{ url: 'https://example.com/ss.php', param: 'f_c', value: '1' },
+			{ url: 'https://example.com/api/graphql', param: 'query', value: 'test' },
+			{ url: 'https://example.com/api/graphql', param: 'query', value: 'test' },
+			{
+				url: 'https://example.com/index.php',
+				param: 'rest_route',
+				value: '%2Fgravitysmtp',
+			},
 		]
 
 		for (const param of blockedParams) {
 		network.use(
-			http.get('https://example.com/blog/', ({ request }) => {
+			http.get(param.url, ({ request }) => {
 				expect(new URL(request.url).searchParams.get(param.param)).toBe(
 					param.value
 				)
@@ -25,7 +46,7 @@ describe('DDOS worker', () => {
 
 		const ctx = createExecutionContext()
 		const response = await worker.fetch(
-			new Request(`https://example.com/blog/?${param.param}=${encodeURIComponent(param.value)}`),
+			new Request(`${param.url}?${param.param}=${encodeURIComponent(param.value)}`),
 			env,
 			ctx
 		)
@@ -38,6 +59,11 @@ describe('DDOS worker', () => {
 
 	it('it should block unauthorized paths with a 500 status', async () => {
 		const blockedUrls = [
+			'https://example.com/%2Fgraphql',
+			'https://example.com/_profiler/phpinfo',
+			'https://example.com/dist/manifest.json',
+			'https://example.com/%252findex.php%3fpage%3dphpinfo',
+
 			// /wp-* and subpaths
 			'https://example.com/wp',
 			'https://example.com//wp-json',
@@ -103,6 +129,11 @@ describe('DDOS worker', () => {
 			// zip files
 			'https://example.com/file.zip',
 			'https://example.com/file.tar.gz',
+
+			// docker files
+			'https://example.com/.docker',
+			'https://example.com/.docker/config.json',
+			'https://example.com/.dockerignore',
 		]
 
 		for (const url of blockedUrls) {
