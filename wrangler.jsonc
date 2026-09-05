@@ -10,6 +10,9 @@
 	"observability": {
 		"enabled": true
 	},
+	"cache": {
+		"enabled": true
+	},
 	/**
 	 * Previews Configuration
 	 * Docs: https://developers.cloudflare.com/workers/configuration/previews/
