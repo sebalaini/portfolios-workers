@@ -40,7 +40,7 @@ describe('DDOS worker', () => {
 				expect(new URL(request.url).searchParams.get(param.param)).toBe(
 					param.value
 				)
-				return HttpResponse.text('unauthorized', { status: 500 })
+				return HttpResponse.text('not found', { status: 404 })
 			})
 		)
 
@@ -52,12 +52,12 @@ describe('DDOS worker', () => {
 		)
 		await waitOnExecutionContext(ctx)
 
-		expect(response.status).toBe(500)
-		expect(await response.text()).toBe('unauthorized')
+		expect(response.status).toBe(404)
+		expect(await response.text()).toBe('not found')
 		}
 	})
 
-	it('it should block unauthorized paths with a 500 status', async () => {
+	it('it should block unauthorized paths with a 404 status', async () => {
 		const blockedUrls = [
 			'https://example.com/%2Fgraphql',
 			'https://example.com/_profiler/phpinfo',
@@ -139,7 +139,7 @@ describe('DDOS worker', () => {
 		for (const url of blockedUrls) {
 			network.use(
 				http.get(url, () => {
-					return HttpResponse.text('unauthorized', { status: 500 })
+					return HttpResponse.text('not found', { status: 404 })
 				})
 			)
 
@@ -147,8 +147,8 @@ describe('DDOS worker', () => {
 			const response = await worker.fetch(new Request(url), env, ctx)
 			await waitOnExecutionContext(ctx)
 
-			expect(response.status).toBe(500)
-			expect(await response.text()).toBe('unauthorized')
+			expect(response.status).toBe(404)
+			expect(await response.text()).toBe('not found')
 		}
 	})
 })

@@ -55,7 +55,7 @@ export default {
 
 		for (const pattern of blockedPatterns) {
 			if (pattern.test(requestTarget)) {
-				return new Response('unauthorized', { status: 500 })
+				return new Response('not found', { status: 404 })
 			}
 		}
 
