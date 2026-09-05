@@ -19,7 +19,7 @@ export default {
 			/^\/(?:.+\/)?uploads(\/.*)?$/, // Block /uploads and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?files(\/.*)?$/, // Block /files and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?template(\/.*)?$/, // Block /template and its subpaths, allowing for preceding directories
-			/^\/(?:.+\/)?login(\/.*)?$/, // Block /template and its subpaths, allowing for preceding directories
+			/^\/(?:.+\/)?login(\/.*)?$/, // Block /login and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?resetpass(\/.*)?$/, // Block /resetpass and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?new(\/.*)?$/, // Block /new and its subpaths, allowing for preceding directories
 			/^\/(?:.+\/)?old(\/.*)?$/, // Block /old and its subpaths, allowing for preceding directories
@@ -53,9 +53,16 @@ export default {
 
 		const requestTarget = `${url.pathname}${url.search}`.replaceAll(/\/+/g, '/').toLowerCase() // Normalize the request target to lowercase and remove duplicate slashes
 
+		const CACHE_SECONDS = 60 * 60 * 24 * 365 // 1 year
+
 		for (const pattern of blockedPatterns) {
 			if (pattern.test(requestTarget)) {
-				return new Response('not found', { status: 404 })
+				return new Response('not found', {
+					status: 404,
+					headers: {
+						'Cache-Control': `public, max-age=${CACHE_SECONDS}, s-maxage=${CACHE_SECONDS}`,
+					},
+				})
 			}
 		}
 
