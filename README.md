@@ -1,5 +1,7 @@
 # Cloudflare Worker: DDoS Path Blocker
 
+> ⚠️ Archived; While this approach is valid, I moved this into a Security rule.
+
 This Cloudflare Worker is purpose-built to mitigate potential threats by
 restricting access to paths frequently targeted in Distributed Denial-of-Service
 (DDoS) attacks or other malicious activities. By analyzing incoming requests
